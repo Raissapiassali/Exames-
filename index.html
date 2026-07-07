@@ -1,64 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Formatador de Exames</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-font-family: Arial;
-padding: 30px;
-background:#f4f8fb;
+function pegar(texto, nomes){
+for(let n of nomes){
+let r = new RegExp(n+"\\D*(\\d+[,.]?\\d*)","i");
+let achou = texto.match(r);
+if(achou) return achou[1];
 }
-textarea {
-width:100%;
-height:180px;
-font-size:16px;
+return "";
 }
-button {
-padding:15px;
-font-size:18px;
-margin-top:10px;
-}
-#resultado {
-background:white;
-padding:15px;
-margin-top:20px;
-}
-</style>
-</head>
 
-<body>
 
-<h2>Formatador de Exames</h2>
-
-<p>Cole os exames:</p>
-
-<textarea id="entrada"></textarea>
-
-<button onclick="formatar()">Formatar</button>
-
-<div id="resultado"></div>
-
-<script>
 function formatar(){
-let texto=document.getElementById("entrada").value;
 
-let saida = texto
-.replace(/hemoglobina/gi,"Hb")
-.replace(/hematócrito/gi,"Ht")
-.replace(/leucócitos/gi,"Leuco")
-.replace(/plaquetas/gi,"Plaq")
-.replace(/creatinina/gi,"Cr")
-.replace(/ureia/gi,"U")
-.replace(/sódio/gi,"Na")
-.replace(/potássio/gi,"K")
-.replace(/glicose/gi,"Glic");
+let t=document.getElementById("entrada").value;
 
-saida = saida.replace(/\n/g," / ");
+let exames=[
+["Hb",["hemoglobina","hb"]],
+["Ht",["hematocrito","hematócrito","ht"]],
+["VCM",["vcm"]],
+["HCM",["hcm"]],
+["Leuco",["leucocitos","leucócitos"]],
+["Neut",["neutrofilos","neutrófilos"]],
+["Linf",["linfocitos","linfócitos"]],
+["Plaq",["plaquetas"]],
+["PCR",["pcr","proteina c reativa"]],
+["VHS",["vhs"]],
+["Na",["sodio","sódio"]],
+["K",["potassio","potássio"]],
+["Mg",["magnesio","magnésio"]],
+["Ca",["calcio","cálcio"]],
+["P",["fosforo","fósforo"]],
+["U",["ureia"]],
+["Cr",["creatinina"]],
+["TGO",["tgo","ast"]],
+["TGP",["tgp","alt"]],
+["FA",["fosfatase alcalina"]],
+["GGT",["ggt"]],
+["BT",["bilirrubina total"]],
+["BD",["bilirrubina direta"]],
+["BI",["bilirrubina indireta"]],
+["INR",["inr"]],
+["TTPa",["ttpa"]],
+["Glic",["glicose","glicemia"]],
+["HbA1c",["hemoglobina glicada"]]
+];
 
-document.getElementById("resultado").innerHTML=saida;
+let resultado=[];
+
+for(let e of exames){
+let valor=pegar(t,e[1]);
+if(valor){
+resultado.push(e[0]+": "+valor);
 }
-</script>
+}
 
-</body>
-</html>
+document.getElementById("resultado").innerText =
+resultado.join(" / ");
+
+}
