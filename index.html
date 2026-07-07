@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Formatador de Exames</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+font-family: Arial;
+padding: 30px;
+background:#f4f8fb;
+}
+textarea {
+width:100%;
+height:180px;
+font-size:16px;
+}
+button {
+padding:15px;
+font-size:18px;
+margin-top:10px;
+}
+#resultado {
+background:white;
+padding:15px;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Formatador de Exames</h2>
+
+<p>Cole os exames:</p>
+
+<textarea id="entrada"></textarea>
+
+<button onclick="formatar()">Formatar</button>
+
+<div id="resultado"></div>
+
+<script>
+function formatar(){
+let texto=document.getElementById("entrada").value;
+
+let saida = texto
+.replace(/hemoglobina/gi,"Hb")
+.replace(/hematócrito/gi,"Ht")
+.replace(/leucócitos/gi,"Leuco")
+.replace(/plaquetas/gi,"Plaq")
+.replace(/creatinina/gi,"Cr")
+.replace(/ureia/gi,"U")
+.replace(/sódio/gi,"Na")
+.replace(/potássio/gi,"K")
+.replace(/glicose/gi,"Glic");
+
+saida = saida.replace(/\n/g," / ");
+
+document.getElementById("resultado").innerHTML=saida;
+}
+</script>
+
+</body>
+</html>
